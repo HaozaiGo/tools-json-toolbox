@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://json-toolbox.vercel.app/sitemap.xml
+Sitemap: https://json.toolkitbox.org/sitemap.xml

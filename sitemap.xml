@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://json-toolbox.vercel.app/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://json-toolbox.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://json-toolbox.vercel.app/zh/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://json-toolbox.vercel.app/" />
+    <loc>https://json.toolkitbox.org/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://json.toolkitbox.org/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://json.toolkitbox.org/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://json.toolkitbox.org/" />
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://json-toolbox.vercel.app/zh/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://json-toolbox.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://json-toolbox.vercel.app/zh/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://json-toolbox.vercel.app/" />
+    <loc>https://json.toolkitbox.org/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://json.toolkitbox.org/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://json.toolkitbox.org/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://json.toolkitbox.org/" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

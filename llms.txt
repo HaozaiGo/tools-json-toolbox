@@ -2,8 +2,8 @@
 
 > A private JSON toolbox for formatting, validating, minifying, comparing, and converting JSON. The tool works in the browser and does not upload your data.
 
-Canonical URL: https://json-toolbox.vercel.app/
-Chinese URL: https://json-toolbox.vercel.app/zh/
+Canonical URL: https://json.toolkitbox.org/
+Chinese URL: https://json.toolkitbox.org/zh/
 
 ## What it does
 
@@ -23,7 +23,7 @@ Chinese URL: https://json-toolbox.vercel.app/zh/
 
 ## Privacy
 
-This tool is designed for browser-based processing whenever possible. User-provided content is not stored by Dudu Tools.
+This tool is designed for browser-based processing whenever possible. User-provided content is not stored by ToolkitBox.
 
 ## FAQ
 
