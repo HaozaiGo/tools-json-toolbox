@@ -1,0 +1,44 @@
+# JSON Toolbox
+
+> A private JSON toolbox for formatting, validating, minifying, comparing, and converting JSON. The tool works in the browser and does not upload your data.
+
+Canonical URL: https://json-toolbox.vercel.app/
+Chinese URL: https://json-toolbox.vercel.app/zh/
+
+## What it does
+
+- Format and beautify JSON
+- Validate JSON syntax
+- Minify JSON to reduce size
+- Compare two JSON documents
+- Convert JSON to YAML and XML
+- Convert YAML or XML back to JSON
+
+## Best for
+
+- Debug API responses
+- Clean up configuration files
+- Compare two JSON payloads
+- Convert data between JSON, YAML, and XML
+
+## Privacy
+
+This tool is designed for browser-based processing whenever possible. User-provided content is not stored by Dudu Tools.
+
+## FAQ
+
+### Is the JSON formatter free?
+
+Yes. JSON Toolbox is free to use and does not require an account.
+
+### Does my JSON get uploaded?
+
+No. Formatting, validation, comparison, and conversion happen locally in your browser.
+
+### Which conversions are supported?
+
+The tool supports JSON formatting, minifying, comparing, JSON to YAML, YAML to JSON, JSON to XML, and XML to JSON.
+
+### How large can a JSON file be?
+
+The practical limit depends on browser memory. For a smooth experience, files below about 50 MB are recommended.

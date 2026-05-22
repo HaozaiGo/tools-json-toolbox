@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- Primary Meta -->
+  <meta name="description" content="JSON格式化、验证、压缩、对比、转YAML/XML，免费在线工具。浏览器端处理，不上传服务器，隐私安全。">
+  <meta name="keywords" content="json formatter, json validator, json prettier online, json compare, json to yaml, json to xml, json压缩, json在线工具">
+  <meta name="author" content="Dudu Tools">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://json-toolbox.vercel.app/zh/">
+  <link rel="alternate" hreflang="en" href="https://json-toolbox.vercel.app/">
+  <link rel="alternate" hreflang="zh-CN" href="https://json-toolbox.vercel.app/zh/">
+  <link rel="alternate" hreflang="x-default" href="https://json-toolbox.vercel.app/">
+<!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JSON Toolbox - 免费在线工具">
+  <meta property="og:description" content="JSON格式化、验证、压缩、对比、转YAML/XML，免费在线工具。浏览器端处理，不上传服务器，隐私安全。">
+  <meta property="og:url" content="https://json-toolbox.vercel.app/zh/">
+<meta property="og:site_name" content="JSON Toolbox">
+  <meta property="og:locale" content="zh_CN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSON Toolbox - 免费在线工具">
+  <meta name="twitter:description" content="JSON格式化、验证、压缩、对比、转YAML/XML，免费在线工具。浏览器端处理，不上传服务器，隐私安全。">
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Toolbox - 免费在线工具 | 浏览器端处理 · 隐私安全</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "JSON Toolbox",
+  "description": "JSON格式化、验证、压缩、对比、转YAML/XML，免费在线工具。浏览器端处理，不上传服务器，隐私安全。",
+  "url": "https://json-toolbox.vercel.app/zh/",
+  "inLanguage": "zh-CN",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Format and beautify JSON",
+    "Validate JSON syntax",
+    "Minify JSON to reduce size",
+    "Compare two JSON documents",
+    "Convert JSON to YAML and XML",
+    "Convert YAML or XML back to JSON"
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dudu Tools"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "zh-CN",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "JSON Toolbox 免费吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "免费，无需注册，打开即可使用。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "我的 JSON 会上传吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不会。格式化、验证、压缩、对比和转换都在浏览器端完成。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "支持哪些转换？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "支持 JSON 格式化、压缩、对比，以及 JSON 与 YAML、XML 的双向转换。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "最大能处理多大文件？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "受浏览器内存限制，建议处理 50MB 以下的 JSON 文件。"
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <h1 class="logo">🔧 JSON Toolbox</h1>
+        <p class="tagline">浏览器端处理 · 文件不上传 · 完全免费</p>
+        <nav class="language-switcher" aria-label="Language"><a class="" href="../" lang="en">EN</a><a class="active" href="./" lang="zh-CN">中文</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main container">
+    <!-- Tab Navigation -->
+    <nav class="tabs" role="tablist">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="formatter" tabindex="0">
+        <span class="tab-icon">🎨</span>
+        <span class="tab-label">格式化/验证</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="minifier" tabindex="-1">
+        <span class="tab-icon">📦</span>
+        <span class="tab-label">压缩</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="compare" tabindex="-1">
+        <span class="tab-icon">🔍</span>
+        <span class="tab-label">对比</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="converter" tabindex="-1">
+        <span class="tab-icon">🔄</span>
+        <span class="tab-label">转换</span>
+      </button>
+    </nav>
+
+    <!-- Tab: Formatter -->
+    <section class="tab-panel active" id="panel-formatter" role="tabpanel" aria-label="JSON 格式化/验证">
+      <div class="panel-header">
+        <h2>JSON 格式化 & 验证</h2>
+        <p>粘贴 JSON 代码，一键格式化和验证语法</p>
+      </div>
+      <div class="tool-layout">
+        <div class="editor-section">
+          <div class="editor-header">
+            <label for="fmt-input">输入 JSON</label>
+            <div class="editor-actions">
+              <button class="btn btn-sm" onclick="loadSample('fmt','sample')">加载示例</button>
+              <button class="btn btn-sm" onclick="clearEditor('fmt-input')">清空</button>
+            </div>
+          </div>
+          <textarea id="fmt-input" class="code-editor" placeholder='{"name": "JSON Toolbox", "version": 1, "features": ["format","validate","compress"]}' spellcheck="false"></textarea>
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label for="fmt-indent">缩进空格</label>
+            <select id="fmt-indent">
+              <option value="2">2 空格</option>
+              <option value="4" selected>4 空格</option>
+              <option value="8">8 空格</option>
+              <option value="tab">Tab</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="formatJSON()">✨ 格式化</button>
+          <button class="btn btn-secondary" onclick="validateJSON()">✓ 验证</button>
+        </div>
+        <div class="editor-section">
+          <div class="editor-header">
+            <label for="fmt-output">输出</label>
+            <div class="editor-actions">
+              <button class="btn btn-sm" onclick="copyOutput('fmt-output')">📋 复制</button>
+              <button class="btn btn-sm" onclick="downloadOutput('fmt-output','formatted.json')">⬇ 下载</button>
+            </div>
+          </div>
+          <textarea id="fmt-output" class="code-editor" readonly placeholder="格式化后的 JSON 将显示在这里..." spellcheck="false"></textarea>
+        </div>
+      </div>
+      <div id="fmt-status" class="status-bar"></div>
+    </section>
+
+    <!-- Tab: Minifier -->
+    <section class="tab-panel" id="panel-minifier" role="tabpanel" aria-label="JSON 压缩" hidden>
+      <div class="panel-header">
+        <h2>JSON 压缩</h2>
+        <p>压缩 JSON 到最小体积，去除所有空白</p>
+      </div>
+      <div class="tool-layout">
+        <div class="editor-section">
+          <div class="editor-header">
+            <label for="min-input">输入 JSON</label>
+            <div class="editor-actions">
+              <button class="btn btn-sm" onclick="loadSample('min','sample')">加载示例</button>
+              <button class="btn btn-sm" onclick="clearEditor('min-input')">清空</button>
+              <span id="min-input-size" class="size-badge">0 chars</span>
+            </div>
+          </div>
+          <textarea id="min-input" class="code-editor" placeholder='粘贴要压缩的 JSON...' spellcheck="false" oninput="updateSize('min-input','min-input-size')"></textarea>
+        </div>
+        <div class="controls">
+          <button class="btn btn-primary" onclick="minifyJSON()">📦 压缩</button>
+          <label class="checkbox-label">
+            <input type="checkbox" id="min-validate" checked>
+            先验证再压缩
+          </label>
+        </div>
+        <div class="editor-section">
+          <div class="editor-header">
+            <label for="min-output">压缩结果</label>
+            <div class="editor-actions">
+              <span id="min-output-size" class="size-badge">0 chars</span>
+              <button class="btn btn-sm" onclick="copyOutput('min-output')">📋 复制</button>
+              <button class="btn btn-sm" onclick="downloadOutput('min-output','minified.json')">⬇ 下载</button>
+            </div>
+          </div>
+          <textarea id="min-output" class="code-editor" readonly placeholder="压缩后的 JSON 将显示在这里..." spellcheck="false"></textarea>
+        </div>
+      </div>
+      <div id="min-status" class="status-bar"></div>
+    </section>
+
+    <!-- Tab: Compare -->
+    <section class="tab-panel" id="panel-compare" role="tabpanel" aria-label="JSON 对比" hidden>
+      <div class="panel-header">
+        <h2>JSON 对比</h2>
+        <p>左右对比两个 JSON 的差异</p>
+      </div>
+      <div class="tool-layout compare-layout">
+        <div class="editor-section">
+          <div class="editor-header">
+            <label for="cmp-left">左侧 JSON</label>
+            <div class="editor-actions">
+              <button class="btn btn-sm" onclick="loadSample('cmp','left')">加载示例</button>
+              <button class="btn btn-sm" onclick="clearEditor('cmp-left')">清空</button>
+            </div>
+          </div>
+          <textarea id="cmp-left" class="code-editor code-editor-half" placeholder='{"a": 1, "b": 2}' spellcheck="false"></textarea>
+        </div>
+        <div class="editor-section">
+          <div class="editor-header">
+            <label for="cmp-right">右侧 JSON</label>
+            <div class="editor-actions">
+              <button class="btn btn-sm" onclick="loadSample('cmp','right')">加载示例</button>
+              <button class="btn btn-sm" onclick="clearEditor('cmp-right')">清空</button>
+            </div>
+          </div>
+          <textarea id="cmp-right" class="code-editor code-editor-half" placeholder='{"a": 1, "b": 3, "c": 4}' spellcheck="false"></textarea>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn btn-primary" onclick="compareJSON()">🔍 对比</button>
+      </div>
+      <div id="cmp-result" class="compare-result"></div>
+      <div id="cmp-status" class="status-bar"></div>
+    </section>
+
+    <!-- Tab: Converter -->
+    <section class="tab-panel" id="panel-converter" role="tabpanel" aria-label="JSON 转换" hidden>
+      <div class="panel-header">
+        <h2>JSON ⇄ YAML ⇄ XML 转换</h2>
+        <p>在 JSON、YAML、XML 格式之间双向转换</p>
+      </div>
+      <div class="tool-layout">
+        <div class="editor-section">
+          <div class="editor-header">
+            <label for="conv-input">输入</label>
+            <div class="editor-actions">
+              <button class="btn btn-sm" onclick="clearEditor('conv-input')">清空</button>
+            </div>
+          </div>
+          <textarea id="conv-input" class="code-editor" placeholder='粘贴 JSON、YAML 或 XML...' spellcheck="false"></textarea>
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label for="conv-direction">转换方向</label>
+            <select id="conv-direction">
+              <option value="json2yaml">JSON → YAML</option>
+              <option value="yaml2json">YAML → JSON</option>
+              <option value="json2xml">JSON → XML</option>
+              <option value="xml2json">XML → JSON</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="convert()">🔄 转换</button>
+        </div>
+        <div class="editor-section">
+          <div class="editor-header">
+            <label for="conv-output">输出</label>
+            <div class="editor-actions">
+              <button class="btn btn-sm" onclick="copyOutput('conv-output')">📋 复制</button>
+              <button class="btn btn-sm" onclick="downloadOutput('conv-output','converted.txt')">⬇ 下载</button>
+            </div>
+          </div>
+          <textarea id="conv-output" class="code-editor" readonly placeholder="转换结果将显示在这里..." spellcheck="false"></textarea>
+        </div>
+      </div>
+      <div id="conv-status" class="status-bar"></div>
+    </section>
+    <section class="seo-content" aria-label="工具说明和常见问题">
+      <div class="seo-block">
+        <h2>JSON Toolbox 是什么？</h2>
+        <p>一个用于 JSON 格式化、验证、压缩、对比以及 JSON/YAML/XML 转换的浏览器端工具，数据不会上传服务器。</p>
+      </div>
+      <div class="seo-grid">
+        <div class="seo-block">
+          <h2>主要功能</h2>
+          <ul><li>Format and beautify JSON</li><li>Validate JSON syntax</li><li>Minify JSON to reduce size</li><li>Compare two JSON documents</li><li>Convert JSON to YAML and XML</li><li>Convert YAML or XML back to JSON</li></ul>
+        </div>
+        <div class="seo-block">
+          <h2>适合场景</h2>
+          <ul><li>开发、调试或发布前的日常处理</li><li>在浏览器端快速完成任务，减少数据上传</li><li>为技术文档、测试数据或线上内容做准备</li></ul>
+        </div>
+      </div>
+      <div class="seo-block faq-list">
+        <h2>常见问题</h2>
+        <details><summary>JSON Toolbox 免费吗？</summary><p>免费，无需注册，打开即可使用。</p></details>
+        <details><summary>我的 JSON 会上传吗？</summary><p>不会。格式化、验证、压缩、对比和转换都在浏览器端完成。</p></details>
+        <details><summary>支持哪些转换？</summary><p>支持 JSON 格式化、压缩、对比，以及 JSON 与 YAML、XML 的双向转换。</p></details>
+        <details><summary>最大能处理多大文件？</summary><p>受浏览器内存限制，建议处理 50MB 以下的 JSON 文件。</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>🔧 JSON Toolbox — 所有处理在浏览器端完成，文件不上传服务器</p>
+      <p class="footer-small">纯前端工具 · 零服务端 · 隐私安全</p>
+    </div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+  <!-- App -->
+  <script src="../js/formatter.js"></script>
+  <script src="../js/minifier.js"></script>
+  <script src="../js/comparator.js"></script>
+  <script src="../js/converter.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>
