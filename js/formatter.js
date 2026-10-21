@@ -9,18 +9,19 @@ function formatJSON() {
 
   const raw = input.value.trim();
   if (!raw) {
-    showStatus(status, '请输入 JSON 内容', 'error');
+    output.value = '';
+    showStatus(status, uiText('Enter JSON content', '请输入 JSON 内容'), 'error');
     return;
   }
 
   try {
     const parsed = JSON.parse(raw);
     output.value = JSON.stringify(parsed, null, indent);
-    showStatus(status, `✅ JSON 格式正确，已格式化 (${countBytes(output.value)} bytes)`, 'success');
+    showStatus(status, uiText('Valid JSON, formatted', 'JSON 格式正确，已格式化') + ` (${countBytes(output.value)} bytes)`, 'success');
   } catch (e) {
     output.value = '';
     const msg = parseErrorMsg(e.message, raw);
-    showStatus(status, `❌ JSON 语法错误: ${msg}`, 'error');
+    showStatus(status, uiText('JSON syntax error: ', 'JSON 语法错误: ') + msg, 'error');
   }
 }
 
@@ -30,16 +31,16 @@ function validateJSON() {
   const raw = input.value.trim();
 
   if (!raw) {
-    showStatus(status, '请输入 JSON 内容', 'error');
+    showStatus(status, uiText('Enter JSON content', '请输入 JSON 内容'), 'error');
     return;
   }
 
   try {
     const parsed = JSON.parse(raw);
-    const type = Array.isArray(parsed) ? 'Array' : typeof parsed;
+    const type = parsed === null ? 'null' : Array.isArray(parsed) ? 'Array' : typeof parsed;
     const keys = typeof parsed === 'object' && parsed !== null ? Object.keys(parsed).length : '—';
     const deep = typeof parsed === 'object' ? deepCount(parsed) : 0;
-    showStatus(status, `✅ 有效 JSON · 类型: ${type} · 根级键数: ${keys} · 嵌套节点: ${deep}`, 'success');
+    showStatus(status, uiText(`Valid JSON · Type: ${type} · Root keys: ${keys} · Nodes: ${deep}`, `有效 JSON · 类型: ${type} · 根级键数: ${keys} · 嵌套节点: ${deep}`), 'success');
   } catch (e) {
     const msg = parseErrorMsg(e.message, raw);
     showStatus(status, `❌ ${msg}`, 'error');
@@ -56,6 +57,7 @@ function deepCount(obj) {
 }
 
 function parseErrorMsg(msg, raw) {
+  if (!document.documentElement.lang.startsWith('zh')) return msg;
   // Extract position info from error
   const posMatch = msg.match(/position\s+(\d+)/i);
   if (posMatch) {

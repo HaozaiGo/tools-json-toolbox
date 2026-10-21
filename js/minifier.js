@@ -8,7 +8,9 @@ function minifyJSON() {
 
   const raw = input.value.trim();
   if (!raw) {
-    showStatus(status, '请输入 JSON 内容', 'error');
+    output.value = '';
+    document.getElementById('min-output-size').textContent = '0 B';
+    showStatus(status, uiText('Enter JSON content', '请输入 JSON 内容'), 'error');
     return;
   }
 
@@ -24,11 +26,12 @@ function minifyJSON() {
     document.getElementById('min-output-size').textContent = formatSize(outSize);
     
     const level = ratio > 30 ? 'success' : ratio > 10 ? 'info' : 'info';
-    showStatus(status, `✅ 压缩完成: ${formatSize(inSize)} → ${formatSize(outSize)} (压缩 ${ratio}%)`, level);
+    showStatus(status, uiText('Minified: ', '压缩完成: ') + `${formatSize(inSize)} → ${formatSize(outSize)} (${ratio}%)`, level);
   } catch (e) {
     output.value = '';
+    document.getElementById('min-output-size').textContent = '0 B';
     const msg = e.message.split('\n')[0];
-    showStatus(status, `❌ JSON 语法错误: ${msg}`, 'error');
+    showStatus(status, uiText('JSON syntax error: ', 'JSON 语法错误: ') + msg, 'error');
   }
 }
 

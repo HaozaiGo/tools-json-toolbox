@@ -1,0 +1,24 @@
+module.exports = async (page, assert, lang) => {
+  await page.fill('#fmt-input', '{"message":"中文","a":[1,true,null]}');
+  await page.click('[onclick="formatJSON()"]');
+  assert.deepEqual(JSON.parse(await page.inputValue('#fmt-output')), {message:'中文',a:[1,true,null]});
+  assert.match(await page.textContent('#fmt-status'), lang === 'en' ? /Valid JSON/ : /格式化/);
+  await page.fill('#fmt-input', '{'); await page.click('[onclick="formatJSON()"]');
+  assert.equal(await page.inputValue('#fmt-output'), '');
+  assert.match(await page.getAttribute('#fmt-status','class'), /error/);
+  await page.click('[data-tab="compare"]');
+  await page.fill('#cmp-left','{"a":1,"same":2}'); await page.fill('#cmp-right','{"a":2,"same":2,"__proto__":3}');
+  await page.click('[onclick="compareJSON()"]');
+  assert.match(await page.textContent('#cmp-result'), /__proto__/);
+  assert.match(await page.textContent('#cmp-status'), /2/);
+  await page.fill('#cmp-right','{'); await page.click('[onclick="compareJSON()"]');
+  assert.match(await page.getAttribute('#cmp-status','class'), /error/);
+  await page.click('[data-tab="minifier"]');
+  await page.fill('#min-input', '{ "a": 1 }'); await page.click('[onclick="minifyJSON()"]');
+  assert.equal(await page.inputValue('#min-output'), '{"a":1}');
+  await page.click('[data-tab="converter"]');
+  await page.fill('#conv-input','{"hello":"world"}'); await page.click('[onclick="convert()"]');
+  assert.equal((await page.inputValue('#conv-output')).trim(), 'hello: world');
+  await page.selectOption('#conv-direction','yaml2json'); await page.fill('#conv-input','a: ['); await page.click('[onclick="convert()"]');
+  assert.match(await page.getAttribute('#conv-status','class'), /error/);
+};

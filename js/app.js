@@ -1,5 +1,9 @@
 /* === App: Tab switching, samples, utilities === */
 
+function uiText(en, zh) {
+  return document.documentElement.lang.startsWith('zh') ? zh : en;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
 });
@@ -103,23 +107,23 @@ function loadSample(target, variant) {
 function copyOutput(id) {
   const el = document.getElementById(id);
   if (!el || !el.value) {
-    showToast('没有内容可以复制');
+    showToast(uiText('No content to copy', '没有内容可以复制'));
     return;
   }
   navigator.clipboard.writeText(el.value).then(() => {
-    showToast('✅ 已复制到剪贴板');
+    showToast(uiText('Copied to clipboard', '已复制到剪贴板'));
   }).catch(() => {
     // Fallback
     el.select();
-    document.execCommand('copy');
-    showToast('✅ 已复制到剪贴板');
+    const copied = document.execCommand('copy');
+    showToast(copied ? uiText('Copied to clipboard', '已复制到剪贴板') : uiText('Copy failed', '复制失败'));
   });
 }
 
 function downloadOutput(id, filename) {
   const el = document.getElementById(id);
   if (!el || !el.value) {
-    showToast('没有内容可以下载');
+    showToast(uiText('No content to download', '没有内容可以下载'));
     return;
   }
   const blob = new Blob([el.value], { type: 'text/plain;charset=utf-8' });
@@ -129,7 +133,7 @@ function downloadOutput(id, filename) {
   a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('⬇️ 文件已下载');
+  showToast(uiText('File downloaded', '文件已下载'));
 }
 
 function clearEditor(id) {

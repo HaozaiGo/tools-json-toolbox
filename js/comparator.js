@@ -10,31 +10,30 @@ function compareJSON() {
   const rightRaw = right.value.trim();
 
   if (!leftRaw || !rightRaw) {
-    showStatus(status, '请同时输入左右两侧的 JSON', 'error');
+    showStatus(status, uiText('Enter JSON on both sides', '请同时输入左右两侧的 JSON'), 'error');
     result.classList.remove('visible');
     return;
   }
 
   let leftObj, rightObj;
   try { leftObj = JSON.parse(leftRaw); }
-  catch (e) { showStatus(status, `❌ 左侧 JSON 语法错误`, 'error'); result.classList.remove('visible'); return; }
+  catch (e) { showStatus(status, uiText('Invalid JSON on the left', '左侧 JSON 语法错误'), 'error'); result.classList.remove('visible'); return; }
   try { rightObj = JSON.parse(rightRaw); }
-  catch (e) { showStatus(status, `❌ 右侧 JSON 语法错误`, 'error'); result.classList.remove('visible'); return; }
+  catch (e) { showStatus(status, uiText('Invalid JSON on the right', '右侧 JSON 语法错误'), 'error'); result.classList.remove('visible'); return; }
 
   const diff = deepDiff(leftObj, rightObj, '');
   const stats = countDiff(diff);
 
   if (stats.total === 0) {
-    result.textContent = '✅ 两个 JSON 完全一致，没有差异。';
+    result.textContent = uiText('JSON values are identical.', '两个 JSON 完全一致，没有差异。');
     result.classList.add('visible');
-    showStatus(status, '✅ 两个 JSON 完全相同', 'success');
+    showStatus(status, uiText('JSON values are identical', '两个 JSON 完全相同'), 'success');
     return;
   }
 
-  let output = `📊 差异统计: +${stats.added} 新增 / -${stats.removed} 删除 / ~${stats.changed} 修改 / =${stats.same} 相同\n\n`;
-  for (const d of diff) {
+  let output = uiText(`Differences: +${stats.added} added / -${stats.removed} removed / ~${stats.changed} changed / =${stats.same} unchanged\n\n`, `差异统计: +${stats.added} 新增 / -${stats.removed} 删除 / ~${stats.changed} 修改 / =${stats.same} 相同\n\n`);
+  for (const d of diff.filter(item => item.type !== 'same')) {
     const icon = d.type === 'added' ? '➕' : d.type === 'removed' ? '➖' : '✏️';
-    const cls = d.type === 'added' ? 'diff-added' : d.type === 'removed' ? 'diff-removed' : '';
     if (d.type === 'changed') {
       output += `${icon}  ${d.path}\n  - ${JSON.stringify(d.oldValue)}\n  + ${JSON.stringify(d.newValue)}\n\n`;
     } else {
@@ -42,10 +41,10 @@ function compareJSON() {
     }
   }
 
-  result.innerHTML = `<span class="${cls}">${escapeHtml(output)}</span>`;
+  result.textContent = output;
   result.classList.add('visible');
 
-  const totalMsg = `对比完成: ${stats.total} 处差异 (+${stats.added}/-${stats.removed}/~${stats.changed})`;
+  const totalMsg = uiText(`Compared: ${stats.total} differences`, `对比完成: ${stats.total} 处差异`) + ` (+${stats.added}/-${stats.removed}/~${stats.changed})`;
   showStatus(status, totalMsg, stats.changed + stats.removed > 0 ? 'info' : 'success');
 }
 
@@ -73,9 +72,9 @@ function deepDiff(a, b, path) {
 
   for (const key of allKeys) {
     const childPath = path ? `${path}.${key}` : key;
-    if (!(key in a)) {
+    if (!Object.hasOwn(a, key)) {
       results.push({ type: 'added', path: childPath, value: b[key] });
-    } else if (!(key in b)) {
+    } else if (!Object.hasOwn(b, key)) {
       results.push({ type: 'removed', path: childPath, value: a[key] });
     } else {
       results.push(...deepDiff(a[key], b[key], childPath));

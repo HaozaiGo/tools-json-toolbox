@@ -8,7 +8,8 @@ function convert() {
 
   const raw = input.value.trim();
   if (!raw) {
-    showStatus(status, '请输入要转换的内容', 'error');
+    output.value = '';
+    showStatus(status, uiText('Enter content to convert', '请输入要转换的内容'), 'error');
     return;
   }
 
@@ -21,7 +22,7 @@ function convert() {
     }
   } catch (e) {
     output.value = '';
-    showStatus(status, `❌ 转换失败: ${e.message}`, 'error');
+    showStatus(status, uiText('Conversion failed: ', '转换失败: ') + e.message, 'error');
   }
 }
 
@@ -30,7 +31,7 @@ function jsonToYaml(raw, output, status) {
   const parsed = JSON.parse(raw);
   const yaml = jsyaml.dump(parsed, { indent: 2, lineWidth: -1, noRefs: true });
   output.value = yaml;
-  showStatus(status, `✅ 转换成功: JSON → YAML (${countBytes(yaml)} bytes)`, 'success');
+  showStatus(status, uiText('Converted: ', '转换成功: ') + `JSON → YAML (${countBytes(yaml)} bytes)`, 'success');
 }
 
 /* === YAML → JSON === */
@@ -38,7 +39,7 @@ function yamlToJson(raw, output, status) {
   const parsed = jsyaml.load(raw);
   const json = JSON.stringify(parsed, null, 2);
   output.value = json;
-  showStatus(status, `✅ 转换成功: YAML → JSON (${countBytes(json)} bytes)`, 'success');
+  showStatus(status, uiText('Converted: ', '转换成功: ') + `YAML → JSON (${countBytes(json)} bytes)`, 'success');
 }
 
 /* === JSON → XML === */
@@ -47,7 +48,7 @@ function jsonToXml(raw, output, status) {
   const xml = objToXml(parsed, 'root');
   const formatted = formatXml(xml);
   output.value = formatted;
-  showStatus(status, `✅ 转换成功: JSON → XML (${countBytes(formatted)} bytes)`, 'success');
+  showStatus(status, uiText('Converted: ', '转换成功: ') + `JSON → XML (${countBytes(formatted)} bytes)`, 'success');
 }
 
 function objToXml(obj, nodeName) {
@@ -102,14 +103,14 @@ function xmlToJson(raw, output, status) {
 
   const parseError = xmlDoc.querySelector('parsererror');
   if (parseError) {
-    throw new Error('XML 格式错误: ' + parseError.textContent);
+    throw new Error(uiText('Invalid XML: ', 'XML 格式错误: ') + parseError.textContent);
   }
 
   const root = xmlDoc.documentElement;
   const result = xmlNodeToObj(root);
   const json = JSON.stringify(result, null, 2);
   output.value = json;
-  showStatus(status, `✅ 转换成功: XML → JSON (${countBytes(json)} bytes)`, 'success');
+  showStatus(status, uiText('Converted: ', '转换成功: ') + `XML → JSON (${countBytes(json)} bytes)`, 'success');
 }
 
 function xmlNodeToObj(node) {
