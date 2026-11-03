@@ -19,6 +19,9 @@ module.exports = async (page, assert, lang) => {
   await page.click('[data-tab="converter"]');
   await page.fill('#conv-input','{"hello":"world"}'); await page.click('[onclick="convert()"]');
   assert.equal((await page.inputValue('#conv-output')).trim(), 'hello: world');
+  await page.selectOption('#conv-direction','yaml2json');
+  await page.fill('#conv-input','hello: 中文\nitems:\n  - one\n  - two'); await page.click('[onclick="convert()"]');
+  assert.deepEqual(JSON.parse(await page.inputValue('#conv-output')), {hello:'中文',items:['one','two']});
   await page.selectOption('#conv-direction','yaml2json'); await page.fill('#conv-input','a: ['); await page.click('[onclick="convert()"]');
   assert.match(await page.getAttribute('#conv-status','class'), /error/);
 };

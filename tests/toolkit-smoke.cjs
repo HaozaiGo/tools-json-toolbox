@@ -22,7 +22,7 @@ const sites = {
 };
 async function main() {
   if (values.help) {
-    console.log('node toolkit-smoke.cjs [--root /path/to/tools] [--playwright /path/to/playwright] [--chrome /path/to/chrome] [--online] [--repo name] [--screenshots /path]\nRequires Playwright (installed package or explicit path) and Chrome/Chromium. Local mode serves the seven repos on an ephemeral port. Online mode tests their production subdomains using the local test modules. js-yaml is fetched from its existing CDN; unrelated third-party requests are blocked. No fixture files are required.');
+    console.log('node toolkit-smoke.cjs [--root /path/to/tools] [--playwright /path/to/playwright] [--chrome /path/to/chrome] [--online] [--repo name] [--screenshots /path]\nRequires Playwright (installed package or explicit path) and Chrome/Chromium. Local mode serves the seven repos on an ephemeral port. Online mode tests their production subdomains using the local test modules. All third-party requests are blocked, including YAML CDNs. No fixture files are required.');
     return;
   }
   const {chromium} = require(values.playwright || process.env.PLAYWRIGHT_MODULE || 'playwright');
@@ -59,11 +59,10 @@ async function main() {
       page.on('pageerror',error => errors.push(error.message));
       await page.route('**/*',route => {
         const target = new URL(route.request().url());
-        const yaml = target.origin === 'https://cdnjs.cloudflare.com' && target.pathname === '/ajax/libs/js-yaml/4.1.0/js-yaml.min.js';
-        return target.origin === origin || yaml ? route.continue() : route.fulfill({status:204,body:''});
+        return target.origin === origin ? route.continue() : route.fulfill({status:204,body:''});
       });
       try {
-        await page.goto(url);
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
         await require(path.join(root,repo,'tests/browser-smoke.cjs'))(page,assert,lang);
         assert.deepEqual(errors,[],'Uncaught page errors');
         if (values.screenshots) await page.screenshot({path:path.join(values.screenshots,`${repo}-${lang}.png`),animations:'disabled'});

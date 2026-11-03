@@ -14,7 +14,7 @@
 ## 🛠 技术栈
 
 - 纯 HTML5 + CSS3 + JavaScript
-- js-yaml (YAML 解析)
+- js-yaml 4.1.1 (YAML 解析，固定版本随站部署，不依赖第三方 CDN)
 - 浏览器端 `DOMParser` (XML 解析)
 - 零服务端依赖
 
